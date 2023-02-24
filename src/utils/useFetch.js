@@ -20,29 +20,40 @@ export default function useFetch(url) {
     const [loading, dispatch] = useReducer(reducer, { data: [], isLoading: false, error: null });
     //const [{data,isLoading,error}]=useReducer(reducer, { data: [], isLoading: false, error: null });
 
-    const getData = () => {
+    const getData = async () => {
         //setIsLoading(true);
         dispatch({ type: 'LOADING' });
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
 
-        fetch(url)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch the data.');
-                }
-                return res.json();
-            })
-            .then((result) => {
-                // setData(result);
-                // setIsLoading(false);
-                // setError(null);
-                dispatch({ type: 'SUCCESS', payload: { data: result } });
-            })
-            .catch((error) => {
-                // setData([]);
-                // setIsLoading(false);
-                // setError(error.message);
-                dispatch({ type: 'ERROR', payload: { error: error } });
-            });
+            if (!res.ok) {
+                throw new Error('Failed to fetch the data.');
+            }
+            dispatch({ type: 'SUCCESS', payload: { data: data } });
+        } catch (error) {
+            dispatch({ type: 'ERROR', payload: { error: error } });
+        }
+
+        // fetch(url)
+        //     .then((res) => {
+        //         if (!res.ok) {
+        //             throw new Error('Failed to fetch the data.');
+        //         }
+        //         return res.json();
+        //     })
+        //     .then((result) => {
+        //         // setData(result);
+        //         // setIsLoading(false);
+        //         // setError(null);
+        //         dispatch({ type: 'SUCCESS', payload: { data: result } });
+        //     })
+        //     .catch((error) => {
+        //         // setData([]);
+        //         // setIsLoading(false);
+        //         // setError(error.message);
+        //         dispatch({ type: 'ERROR', payload: { error: error } });
+        //     });
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
