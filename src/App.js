@@ -1,11 +1,13 @@
 import React, { useReducer } from 'react';
 import useFetch from './utils/useFetch';
 
-import './App.css';
+//import './App.css';
 
 import countryApi from './utils/apis_url';
 import reducer from './utils/reducer';
-
+import Header from './components/Header';
+import Countries from './components/Countries';
+import Footer from './components/Footer';
 const API_URL = `${countryApi}/v3.1/all`;
 
 function App() {
@@ -19,13 +21,18 @@ function App() {
     // countriesState.countries
     // name population capital flag continent
 
-    console.log(data.length);
+    //console.log(data);
 
     return (
         <div>
-            {error && <h2>{error}</h2>}
-            {isLoading && <span className="loading">Loading...</span>}
-            {data.length > 0 && console.log(data.slice(0, 10))}
+            <Header />
+            <main className="main">
+                {error && <h2>{error}</h2>}
+                {isLoading && <span className="loading">Loading...</span>}
+                {/* {data.length > 0 && console.log(data.slice(0, 10))} */}
+                <Countries countries={data} />
+            </main>
+            <Footer />
         </div>
     );
 }
