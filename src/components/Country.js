@@ -9,6 +9,7 @@ const Country = ({ country }) => {
                     <h2 className="country__name">{country.name.common}</h2>
                     <h3 className="country__name">{!country.capital ? `No capital` : country.capital}</h3>
                     <p className="country__name">{country.population}</p>
+                    <button>Delete Country</button>
                 </figcaption>
             </figure>
         </article>
