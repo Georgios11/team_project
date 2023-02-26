@@ -1,5 +1,8 @@
 const reducer = (state, action) => {
     switch (action.type) {
+        case 'SET':
+            console.log('set');
+            return { ...state, countries: action.payload.countries };
         case 'ADD':
             const country = action.payload.country;
             return { ...state, countries: [...state.countries, country] };
