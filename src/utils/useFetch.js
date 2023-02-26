@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { useState, useEffect, useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -67,6 +68,7 @@ export default function useFetch(url) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // return { data, isLoading, error };

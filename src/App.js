@@ -19,6 +19,7 @@ function App() {
             dispatch({ type: 'SET', payload: { countries: data, displayed: data } });
         }
         //countriesState.countries = data;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
     const handleSearch = (event) => {
         const input = event.target.value;
@@ -30,6 +31,7 @@ function App() {
         dispatch({ type: 'SHOW', payload: { displayed: countriesState.countries.filter(search) } });
     };
     const handleSort = () => {
+        // eslint-disable-next-line array-callback-return
         countriesState.displayed.sort((x, y) => {
             if (x.name.common.localeCompare(y.name.common) === 1) return countriesState.isDescending ? 1 : -1;
             if (x.name.common.localeCompare(y.name.common) === -1) return countriesState.isDescending ? -1 : 1;
@@ -45,6 +47,7 @@ function App() {
     const handleDelete = (id) => {
         dispatch({ type: 'SET', payload: { countries: countriesState.countries.filter((country) => country.id !== id), displayed: countriesState.displayed.filter((country) => country.id !== id) } });
     };
+    // eslint-disable-next-line no-unused-vars
     const handleAdd = () => {};
     return (
         <div>
