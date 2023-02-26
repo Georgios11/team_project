@@ -4,8 +4,7 @@ const Footer = () => {
     const date = new Date().getFullYear();
     return (
         <footer className="footer">
-            <h4>Copyright &copy; Georgios-Roman-Oleh</h4>
-            <h4>{date}</h4>
+            <h4>Copyright &copy; Georgios-Roman-Oleh {date}</h4>
         </footer>
     );
 };

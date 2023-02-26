@@ -1,14 +1,14 @@
 const reducer = (state, action) => {
     switch (action.type) {
         case 'SET':
-            return { ...state, countries: action.payload.countries, displayed: action.payload.countries };
+            return { ...state, countries: action.payload.countries, displayed: action.payload.displayed };
         case 'ADD':
             const country = action.payload.country;
             return { ...state, countries: [...state.countries, country] };
         case 'DELETE':
             const id = action.payload.id;
             return { ...state, countries: [...state.filter((e) => e.id !== id)] };
-        case 'SEARCH':
+        case 'SHOW':
             return { ...state, displayed: action.payload.displayed };
         case 'SORT':
             return { ...state, displayed: action.payload.displayed, isDescending: !state.isDescending };

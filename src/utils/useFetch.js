@@ -1,4 +1,5 @@
 import { useState, useEffect, useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -30,7 +31,14 @@ export default function useFetch(url) {
             if (!res.ok) {
                 throw new Error('Failed to fetch the data.');
             }
-            dispatch({ type: 'SUCCESS', payload: { data: data } });
+            dispatch({
+                type: 'SUCCESS',
+                payload: {
+                    data: data.map((country) => {
+                        return { ...country, id: uuidv4() };
+                    })
+                }
+            });
         } catch (error) {
             dispatch({ type: 'ERROR', payload: { error: error } });
         }

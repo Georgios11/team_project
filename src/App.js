@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import useFetch from './utils/useFetch';
-
+import { Link } from 'react-router-dom';
 //import './App.css';
 
 import countryApi from './utils/apis_url';
@@ -16,7 +16,7 @@ function App() {
     ///// how to do it properly ???
     useEffect(() => {
         if (data.length !== 0) {
-            dispatch({ type: 'SET', payload: { countries: data } });
+            dispatch({ type: 'SET', payload: { countries: data, displayed: data } });
         }
         //countriesState.countries = data;
     }, [isLoading]);
@@ -27,7 +27,7 @@ function App() {
             return country.name.common.toLowerCase().includes(input.toLowerCase()) || (country.capital && country.capital[0].toLowerCase().includes(input.toLowerCase()));
         };
 
-        dispatch({ type: 'SEARCH', payload: { displayed: countriesState.countries.filter(search) } });
+        dispatch({ type: 'SHOW', payload: { displayed: countriesState.countries.filter(search) } });
     };
     const handleSort = () => {
         countriesState.displayed.sort((x, y) => {
@@ -42,16 +42,26 @@ function App() {
             }
         });
     };
+    const handleDelete = (id) => {
+        dispatch({ type: 'SET', payload: { countries: countriesState.countries.filter((country) => country.id !== id), displayed: countriesState.displayed.filter((country) => country.id !== id) } });
+    };
+    const handleAdd = () => {};
     return (
         <div>
             <Header />
             <main className="main">
-                <input type={'text'} name={'search'} placeholder={'Search'} onChange={handleSearch} id="search"></input>
-                <button name="sort" id="sort" onClick={handleSort}>
-                    {'Sort ' + (countriesState.isDescending ? '⇩' : '⇧')}
-                </button>
+                <nav className="navigation">
+                    <input type={'text'} name={'search'} placeholder={'Search'} onChange={handleSearch} id="search"></input>
+                    <button name="sort" id="sort" onClick={handleSort} className="btn">
+                        {'Sort ' + (countriesState.isDescending ? '⇩' : '⇧')}
+                    </button>
+                    <Link to="/header" className="btn">
+                        Link
+                    </Link>
+                </nav>
+
                 {error && <h2>{error}</h2>}
-                {isLoading && countriesState.displayed ? <span className="loading">Loading...</span> : <Countries countries={countriesState.displayed} />}
+                {isLoading && countriesState.displayed ? <span className="loading">Loading...</span> : <Countries countries={countriesState.displayed} handleDelete={handleDelete} />}
             </main>
             <Footer />
         </div>
