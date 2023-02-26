@@ -1,9 +1,9 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 import Country from './Country';
-const Countries = ({ countries }) => {
+const Countries = ({ countries, handleDelete }) => {
     // console.log(countries);
-    const countriesArray = countries.map((country) => <Country key={uuidv4()} country={country} />);
+    const countriesArray = countries.map((country) => <Country key={country.id} country={country} handleDelete={handleDelete} />);
     return <section className="countries">{countriesArray}</section>;
 };
 
